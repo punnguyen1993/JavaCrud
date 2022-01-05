@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
-import java.util.concurrent.Callable;
+
 
 public class JavaCrud {
     private JPanel Main;
@@ -36,11 +36,11 @@ public class JavaCrud {
                 qty = txtQty.getText();
 
                 try{
-                    pst = con.prepareStatement("INSERT INTO products(pid, pname, price, qty)values(?,?,?,?)");
-                    pst.setString(1,"1");
-                    pst.setString(2,name);
-                    pst.setString(3,price);
-                    pst.setString(4,qty);
+                    pst = con.prepareStatement("INSERT INTO products(pname, price, qty)values(?,?,?)");
+//                    pst.setString(1,"1");
+                    pst.setString(1,name);
+                    pst.setString(2,price);
+                    pst.setString(3,qty);
                     pst.executeUpdate();
                     JOptionPane.showMessageDialog(null, "Record Addeddddddddd!!!");
 
