@@ -10,9 +10,10 @@ public class JavaCrud {
     private JTextField txtPrice;
     private JButton deleteButton;
     private JButton updateButton;
-    private JTextField textField3;
+    private JTextField txtpid;
     private JButton saveButton;
     private JTextField txtQty;
+    private JButton searchButton;
 
 
     public static void main(String[] args) {
@@ -23,7 +24,8 @@ public class JavaCrud {
         frame.setVisible(true);
     }
 
-    PreparedStatement pst;
+
+
     public JavaCrud() {
         Connect();
 
@@ -37,7 +39,6 @@ public class JavaCrud {
 
                 try{
                     pst = con.prepareStatement("INSERT INTO products(pname, price, qty)values(?,?,?)");
-//                    pst.setString(1,"1");
                     pst.setString(1,name);
                     pst.setString(2,price);
                     pst.setString(3,qty);
@@ -55,16 +56,46 @@ public class JavaCrud {
             }
         });
 
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    String pid = txtpid.getText();
+                    pst = con.prepareStatement("SELECT pname, price, qty FROM products WHERE pid = ?");
+                    pst.setString(1, pid);
+                    ResultSet rs = pst.executeQuery();
+
+                    if(rs.next()){
+                        String name = rs.getString(1);
+                        String price = rs.getString(2);
+                        String qty = rs.getString(3);
+
+                        txtName.setText(name);
+                        txtPrice.setText(price);
+                        txtQty.setText(qty);
+                    }else{
+                        txtName.setText("");
+                        txtPrice.setText("");
+                        txtQty.setText("");
+                        JOptionPane.showMessageDialog(null, "Invalid Product ID");
+                    }
+
+                }catch(SQLException ex){
+                    ex.printStackTrace();
+                }
+            }
+        });
     }
 
     Connection con;
-
+    PreparedStatement pst;
 
     public void Connect(){
-        //"jdbc:mysql://localhost:3306/crud-schema"
         try{
-            //khúc này url thêm "cj" vào chạy không có lỗi, google sau
+            // khúc này trả về đối tượng liên kết với class với package directory.
+            // nó nằm ỏ lib package, được khuyến nghị để sử dụng DriverManager
             Class.forName("com.mysql.cj.jdbc.Driver");
+
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/crud-schema",
                                                     "root", "th!nhnguyen93");
 
