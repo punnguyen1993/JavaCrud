@@ -43,7 +43,7 @@ public class JavaCrud {
                     pst.setString(2,price);
                     pst.setString(3,qty);
                     pst.executeUpdate();
-                    JOptionPane.showMessageDialog(null, "Record Addeddddddddd!!!");
+                    JOptionPane.showMessageDialog(null, "Record Added!!!!");
 
                     txtName.setText("");
                     txtPrice.setText("");
@@ -82,6 +82,61 @@ public class JavaCrud {
 
                 }catch(SQLException ex){
                     ex.printStackTrace();
+                }
+            }
+        });
+        updateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String name, price, qty, pid;
+                name = txtName.getText();
+                price = txtPrice.getText();
+                qty = txtQty.getText();
+                pid = txtpid.getText();
+
+
+                try{
+                    pst = con.prepareStatement("UPDATE products SET pname = ?, price = ?, qty = ? WHERE pid = ?");
+                    pst.setString(1, name);
+                    pst.setString(2, price);
+                    pst.setString(3, qty);
+                    pst.setString(4, pid);
+
+                    pst.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Record Updated!!!!");
+
+                    txtName.setText("");
+                    txtPrice.setText("");
+                    txtQty.setText("");
+                    txtName.requestFocus();
+                    txtpid.setText("");
+
+                }catch (SQLException e1){
+                    e1.printStackTrace();
+                }
+            }
+        });
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String pid;
+                pid = txtpid.getText();
+
+                try{
+                    pst = con.prepareStatement("DELETE FROM products WHERE pid = ?");
+                    pst.setString(1, pid);
+
+                    pst.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Record Deleted!!!!!");
+
+                    txtName.setText("");
+                    txtPrice.setText("");
+                    txtQty.setText("");
+                    txtName.requestFocus();
+                    txtpid.setText("");
+
+                }catch(SQLException e1){
+                    e1.printStackTrace();
                 }
             }
         });
