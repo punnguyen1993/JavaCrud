@@ -154,13 +154,7 @@ public class JavaCrud {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/crud-schema",
                                                     "root", "th!nhnguyen93");
 
-            //The query below is to print elements in column price of table
-            // It is used to understand structure of mysql, need to delete later
-//            Statement statement = con.createStatement();
-//            ResultSet resultSet = statement.executeQuery("SELECT * FROM products");
-//            while(resultSet.next()){
-//                System.out.println(resultSet.getString("price"));
-//            }
+
         }catch(ClassNotFoundException ex){
             ex.printStackTrace();
         }catch(SQLException ex){
