@@ -147,13 +147,20 @@ public class JavaCrud {
 
     public void Connect(){
         try{
-            // khúc này trả về đối tượng liên kết với class với package directory.
+            // khúc này trả về đối tượng liên kết với class với package directory
             // nó nằm ỏ lib package, được khuyến nghị để sử dụng DriverManager
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/crud-schema",
                                                     "root", "th!nhnguyen93");
 
+            //The query below is to print elements in column price of table
+            // It is used to understand structure of mysql, need to delete later
+//            Statement statement = con.createStatement();
+//            ResultSet resultSet = statement.executeQuery("SELECT * FROM products");
+//            while(resultSet.next()){
+//                System.out.println(resultSet.getString("price"));
+//            }
 
         }catch(ClassNotFoundException ex){
             ex.printStackTrace();
